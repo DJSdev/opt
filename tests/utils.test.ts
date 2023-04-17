@@ -1,7 +1,4 @@
-import {
-  padStart,
-  hexConverter
-} from '../src/utils';
+import { padStart, hexConverter } from '../src/utils';
  
 describe('padStart', () => {
   test('padStart with string', () => {

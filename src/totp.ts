@@ -39,14 +39,7 @@ export class Totp extends Hotp {
   }
 
   public async generate(): Promise<string> {
-    if (!this.totpOptions.counter) {
-      this.totpOptions.counter = Date.now();
-    }
-    const totpSecret = this.getTotpSecret();
-    const counter = this.getTotpCounter(this.totpOptions.counter, this.totpOptions.step);
-    const digest = await this.hmacDigest(totpSecret, counter, this.totpOptions.algorithm, this.totpOptions.keyEncoding);
-
-    return this.hotpDigestToToken(digest, 6);
+    return await this.getTotpToken();
   }
 
   protected defaultOptions(): Partial<TotpOptions> {
@@ -57,6 +50,17 @@ export class Totp extends Hotp {
       step: 30,
       digits: 6
     }
+  }
+
+  protected async getTotpToken(): Promise<string> {
+    if (!this.totpOptions.counter) {
+      this.totpOptions.counter = Date.now();
+    }
+    const totpSecret = this.getTotpSecret();
+    const counter = this.getTotpCounter(this.totpOptions.counter, this.totpOptions.step);
+    const digest = await this.hmacDigest(totpSecret, counter, this.totpOptions.algorithm, this.totpOptions.keyEncoding);
+
+    return this.hotpDigestToToken(digest, 6);
   }
 
   protected getTotpCounter(counter: number, step: 30 | 60): string {

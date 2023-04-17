@@ -1,6 +1,5 @@
 import { Totp } from '../src/totp';
 
-
 describe('TOTP - ASCII Encoded Key', () => {
   const keys = [
     { key: '11223344556677AABBCCDD', counter: 1677735728855, value: '460936' },
