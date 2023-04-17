@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "build": "tsc",
-    "otp": "npx ts-node opt-original.ts",
-    "totp": "npx ts-node totp.ts",
-    "hotp": "npx ts-node hotp.ts"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
