@@ -52,8 +52,6 @@ export class Hotp implements Otp {
 
     const keyConverter = this.getKeyConverter(encoding);
 
-    const asdf = keyConverter.getBuffer(secret)
-
     // Generate HMAC Key
     const key = await crypto.subtle.importKey(
       'raw',
@@ -63,8 +61,6 @@ export class Hotp implements Otp {
       ['sign', 'verify']
     );
   
-    const tet = hexConverter.getBuffer(counter)
-
     // create HMAC digest buffer 
     const digestBuffer = await crypto.subtle.sign(
       'HMAC',
@@ -75,6 +71,7 @@ export class Hotp implements Otp {
     return hexConverter.getString(digestBuffer)
   }
 
+  // ngl, this is from https://github.com/yeojz/otplib/blob/master/packages/otplib-core/src/hotp.ts#L154
   protected hotpDigestToToken(hexDigest: string, digits: 6 | 8): string {
     const digest = hexConverter.getBuffer(hexDigest);
     const offset = digest[digest.length - 1] & 0xf;
